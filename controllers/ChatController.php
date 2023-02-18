@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\controllers\qaTrait\QaTrait;
+use app\models\Chats;
 use yii\web\Controller;
 
 class ChatController extends Controller
@@ -34,5 +35,12 @@ class ChatController extends Controller
     {
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
+    }
+    
+    public function actionHistory(int $chatId = 1)
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+    
+        return Chats::find()->where(['idChat' => $chatId])->all();
     }
 }
