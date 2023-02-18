@@ -13,7 +13,6 @@ use \GuzzleHttp\Client;
 
 class QuestionanswerController extends Controller
 {
-    use QaTrait;
     
     /**
      * {@inheritdoc}

@@ -4,6 +4,7 @@ namespace app\controllers\qaTrait;
 
 use app\models\NeuralNetwork;
 use app\models\stt\Stt;
+use Yii;
 use yii\web\UploadedFile;
 
 trait QaTrait {
