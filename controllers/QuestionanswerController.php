@@ -6,6 +6,8 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
+use app\models\gii\QuestionAnswer;
+use app\models\QuestionAnswerSearch;
 
 class QuestionanswerController extends Controller
 {
@@ -58,6 +60,9 @@ class QuestionanswerController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $dataProvider = QuestionAnswerSearch::search();
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }
