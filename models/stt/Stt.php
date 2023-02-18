@@ -21,10 +21,10 @@ class Stt extends Model
     {
         $url = self::API_URL . '&folderId=' . \Yii::$app->params['yandex']['folderId'];
         $authToken = \Yii::$app->params['yandex']['Iam'];
-        $fileContent = file_get_contents($file->tempName);
-        if ($fileContent === false) {
-            return 1111;
+        if (!file_exists($file->tempName)) {
+            return false;
         }
+        $fileContent = Utils::tryFopen($file->tempName, 'r');
         
         $httpClient = new Client();
         $res = null;
