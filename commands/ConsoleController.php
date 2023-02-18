@@ -50,7 +50,7 @@ class ConsoleController extends Controller
     
     public function actionTest()
     {
-        $client = new Client();
+        $client = new GuzzleClient();
         $res = $client->post('http://localhost:8080/guess', [
             'headers' => ['Content-type' => 'application/json'],
             'body' => Json::encode([
