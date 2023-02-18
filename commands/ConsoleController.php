@@ -7,9 +7,11 @@
 
 namespace app\commands;
 
+use GuzzleHttp\Client;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use \GuzzleHttp\Client as GuzzleClient;
+use yii\helpers\Json;
 
 /**
  * This command echoes the first argument that you have entered.
@@ -44,5 +46,17 @@ class ConsoleController extends Controller
         //     echo 'I completed! ' . $response->getBody();
         // });
         // $promise->wait();
+    }
+    
+    public function actionTest()
+    {
+        $client = new Client();
+        $res = $client->post('http://localhost:8080/guess', [
+            'headers' => ['Content-type' => 'application/json'],
+            'body' => Json::encode([
+                'guess' => 'Погода в ставрополе'
+            ])
+        ]);
+        echo $res->getBody();
     }
 }

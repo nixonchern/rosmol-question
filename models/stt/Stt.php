@@ -15,7 +15,6 @@ class Stt extends Model
     /**
      * @param UploadedFile $file
      * @return false|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function recognize($file)
     {

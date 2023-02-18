@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use controllers\qaTrait\QaTrait;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -12,6 +13,8 @@ use \GuzzleHttp\Client;
 
 class QuestionanswerController extends Controller
 {
+    use QaTrait;
+    
     /**
      * {@inheritdoc}
      */
@@ -55,7 +58,7 @@ class QuestionanswerController extends Controller
     }
 
     /**
-     * 
+     *
      *
      * @return string
      */
