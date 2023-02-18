@@ -3,6 +3,7 @@
 namespace app\controllers\qaTrait;
 
 use app\models\Chats;
+use app\models\gii\UnansweredQuestions;
 use app\models\NeuralNetwork;
 use app\models\stt\Stt;
 use Yii;
@@ -31,6 +32,10 @@ trait QaTrait {
             $chat->title = 'Извините, но у меня нет ответа на этот вопрос';
             $chat->type = 1;
             $chat->save(false);
+            
+            $model = new UnansweredQuestions();
+            $model->question = $message;
+            $model->save();
             
             return [
                 'success' => false,
