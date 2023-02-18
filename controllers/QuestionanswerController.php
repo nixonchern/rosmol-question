@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\gii\QuestionAnswer;
 use app\models\QuestionAnswerSearch;
+use \GuzzleHttp\Client;
 
 class QuestionanswerController extends Controller
 {
