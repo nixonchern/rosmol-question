@@ -11,18 +11,23 @@ class ChatController extends Controller
     
     public function behaviors()
     {
-        return array_merge(parent::behaviors(), [
-            'corsFilter'  => [
-                'class' => \yii\filters\Cors::className(),
-                'cors'  => [
-                    // restrict access to domains:
-                    'Origin'                           => ['*'],
-                    'Access-Control-Request-Method'    => ['POST', 'GET'],
-                    'Access-Control-Allow-Credentials' => true,
-                    'Access-Control-Max-Age'           => 3600,                 // Cache (seconds)
-                ],
-            ],
-        ]);
+        $behaviors = parent::behaviors();
+    
+        $behaviors['corsFilter'] = [
+            'class' => \yii\filters\Cors::className(),
+            'cors' => [
+                'Origin' => ['*'],
+                'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                'Access-Control-Request-Headers' => ['*'],
+                'Access-Control-Allow-Methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                'Allow' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                'Access-Control-Allow-Credentials' => null,
+                'Access-Control-Max-Age' => 86400,
+                'Access-Control-Expose-Headers' => []
+            ]
+    
+        ];
+        return $behaviors;
     }
     
     public function beforeAction($action)

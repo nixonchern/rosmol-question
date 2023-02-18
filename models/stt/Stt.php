@@ -3,6 +3,7 @@
 namespace app\models\stt;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Utils;
 use yii\base\Model;
 use yii\helpers\Json;
 use yii\web\UploadedFile;
@@ -22,19 +23,22 @@ class Stt extends Model
         $authToken = \Yii::$app->params['yandex']['Iam'];
         $fileContent = file_get_contents($file->tempName);
         if ($fileContent === false) {
-            return false;
+            return 1111;
         }
         
         $httpClient = new Client();
         $res = null;
         try {
-            $res = $httpClient->post($url, [
+            $res = $httpClient->request('POST', $url, [
                 'headers' => [ 'Authorization' => 'Bearer ' . $authToken],
-                'body' => $fileContent
+                'multipart' => [
+                    'name' => 'voice.ogg',
+                    'contents' => $fileContent
+                ]
             ]);
             $res = Json::decode($res->getBody());
         } catch (\Throwable $e) {
-            return false;
+            throw new \yii\web\HttpException(404, $e->getTraceAsString());
         }
         
         if (!$res || !array_key_exists('result', $res)) {
