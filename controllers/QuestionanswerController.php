@@ -58,6 +58,6 @@ class QuestionanswerController extends Controller
      */
     public function actionIndex()
     {
-        return "Test";
+        return $this->render('index');
     }
 }
