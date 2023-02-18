@@ -97,6 +97,10 @@ trait QaTrait {
             $chat->title = 'Извините, но у меня нет ответа на этот вопрос';
             $chat->type = 1;
             $chat->save(false);
+
+            $model = new UnansweredQuestions();
+            $model->question = $question;
+            $model->save();
             
             return [
                 'success' => false,
