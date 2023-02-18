@@ -40,8 +40,6 @@ trait QaTrait {
         $stt = new Stt();
         $question = $stt->recognize($voiceFile);
         
-        return [$question];
-        
         if ($question === false) {
             return [
                 'success' => false,

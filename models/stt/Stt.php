@@ -24,21 +24,18 @@ class Stt extends Model
         if (!file_exists($file->tempName)) {
             return false;
         }
-        $fileContent = Utils::tryFopen($file->tempName, 'r');
         
         $httpClient = new Client();
         $res = null;
         try {
+            $fileContent = Utils::tryFopen($file->tempName, 'r');
             $res = $httpClient->request('POST', $url, [
                 'headers' => [ 'Authorization' => 'Bearer ' . $authToken],
-                'multipart' => [
-                    'name' => 'voice.ogg',
-                    'contents' => $fileContent
-                ]
+                'body' => $fileContent
             ]);
             $res = Json::decode($res->getBody());
         } catch (\Throwable $e) {
-            throw new \yii\web\HttpException(404, $e->getTraceAsString());
+            throw new \yii\web\HttpException(404, $e->getMessage() . ' ' . $e->getTraceAsString());
         }
         
         if (!$res || !array_key_exists('result', $res)) {
