@@ -60,8 +60,10 @@ class QuestionanswerController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = QuestionAnswerSearch::search();
+        $searchModel = new QuestionAnswerSearch;
+        $dataProvider = $searchModel::search();
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }

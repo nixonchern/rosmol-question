@@ -39,8 +39,8 @@ class QuestionAnswer extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'question' => 'Question',
-            'answer' => 'Answer',
+            'question' => 'Вопрос',
+            'answer' => 'Ответ',
         ];
     }
 }
