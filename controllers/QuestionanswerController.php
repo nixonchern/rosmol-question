@@ -13,7 +13,6 @@ use yii\web\NotFoundHttpException;
 
 class QuestionanswerController extends Controller
 {
-    use QaTrait;
     
     /**
      * {@inheritdoc}
