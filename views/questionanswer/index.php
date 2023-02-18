@@ -1,27 +1,42 @@
 <?php
-/** @var yii\web\View $this */
+
+use app\models\gii\QuestionAnswer;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
-$this->title = 'My Yii Application';
+/** @var yii\web\View $this */
+/** @var yii\data\ActiveDataProvider $dataProvider */
+
+$this->title = 'Таблица вопрос-ответ';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<?= GridView::widget([
-    'dataProvider' => $dataProvider,
-    'filterModel' => $searchModel,
-    'tableOptions' => [
-        'class' => 'table table-striped table-bordered'
-    ],
-    'columns' => [
-        [
-            'class' => 'yii\grid\SerialColumn'
+<div class="question-answer-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Создать вопрос-ответ', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id',
+            'question:ntext',
+            'answer:ntext',
+            [
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, QuestionAnswer $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id' => $model->id]);
+                 }
+            ],
         ],
-        [
-            'attribute'=>'id',
-        ],
-        [
-            'attribute'=>'question',
-        ],
-        [
-            'attribute'=>'answer',
-        ],
-   ],
-]); ?>
+    ]); ?>
+
+
+</div>
