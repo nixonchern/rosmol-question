@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use controllers\qaTrait\QaTrait;
+use app\controllers\qaTrait\QaTrait;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;

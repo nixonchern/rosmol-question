@@ -1,6 +1,6 @@
 <?php
 
-namespace controllers\qaTrait;
+namespace app\controllers\qaTrait;
 
 use app\models\NeuralNetwork;
 use app\models\stt\Stt;
