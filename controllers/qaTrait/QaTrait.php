@@ -2,6 +2,7 @@
 
 namespace app\controllers\qaTrait;
 
+use app\models\gii\UnansweredQuestions;
 use app\models\NeuralNetwork;
 use app\models\stt\Stt;
 use Yii;
@@ -16,9 +17,12 @@ trait QaTrait {
         $nn = new NeuralNetwork();
         $ans = $nn->guess($message);
         if (!$ans) {
+            $model = new UnansweredQuestions();
+            $model->question = $message;
+            $model->save();
             return [
                 'success' => false,
-            ];
+            ];            
         }
         
         return [

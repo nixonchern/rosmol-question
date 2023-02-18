@@ -39,8 +39,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
-            ['label' => 'Таблица', 'url' => ['/questionanswer']],
+            ['label' => 'Вопрос-ответ', 'url' => ['/questionanswer']],
             ['label' => 'Тест вопроса', 'url' => ['/questionanswer/test-question']],
+            ['label' => 'Вопросы без ответа', 'url' => ['/unansweredquestions']],
             // Yii::$app->user->isGuest
             //     ? ['label' => 'Login', 'url' => ['/site/login']]
             //     : '<li class="nav-item">'
