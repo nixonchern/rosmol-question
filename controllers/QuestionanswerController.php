@@ -172,11 +172,10 @@ class QuestionanswerController extends Controller
                     'guess' => $q
                 ])
             ]);
-            $result = $res->getBody();
+            
+            $result = Json::decode((string)$res->getBody());
         }
         else{ $result = null; }
-        var_dump($result);
-        exit;
 
         $model = new QuestionAnswer();
         $model->load($post);

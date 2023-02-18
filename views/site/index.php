@@ -21,6 +21,13 @@ $this->title = 'My Yii Application';
 
                 <p><a class="btn btn-outline-secondary" href="/questionanswer">Таблица &raquo;</a></p>
             </div>
+            <div class="col-lg-4">
+                <h2>Тест вопроса</h2>
+
+                <p>Можно задать вопрос и узнать, найдёт ли ответ система</p>
+
+                <p><a class="btn btn-outline-secondary" href="/questionanswer/test-question">Тест вопроса &raquo;</a></p>
+            </div>
         </div>
 
     </div>

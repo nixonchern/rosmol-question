@@ -22,7 +22,12 @@ use yii\widgets\ActiveForm;
 
     <?php 
     if($result){
-        var_dump($result);
+        if($result['success']){
+            Yii::$app->session->setFlash('success', $result['ans']);
+        }
+        else{
+            Yii::$app->session->setFlash('error', $result['guess']);
+        }
     } 
     ?>
 
