@@ -7,10 +7,11 @@
 
 namespace app\commands;
 
-use GuzzleHttp\Client;
+use app\models\gii\QuestionAnswer;
+use app\models\NeuralNetwork;
 use yii\console\Controller;
-use yii\console\ExitCode;
 use \GuzzleHttp\Client as GuzzleClient;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
 /**
@@ -30,22 +31,10 @@ class ConsoleController extends Controller
      */
     public function actionSend()
     {
-        $client = new GuzzleClient();
-        $res = $client->request('GET', 'https://example.com/', [
-            'auth' => ['user', 'pass']
-        ]);
-        echo $res->getStatusCode();
-        // "200"
-        // echo $res->getHeader('content-type')[0];
-        // // 'application/json; charset=utf8'
-        // echo $res->getBody();
-
-        // // Send an asynchronous request.
-        // $request = new \GuzzleHttp\Psr7\Request('GET', 'http://httpbin.org');
-        // $promise = $client->sendAsync($request)->then(function ($response) {
-        //     echo 'I completed! ' . $response->getBody();
-        // });
-        // $promise->wait();
+        $questionAnswers = QuestionAnswer::find()->asArray()->all();
+        $data = ArrayHelper::map($questionAnswers, 'question', 'answer');
+        $NeuralNetwork = (new NeuralNetwork)->train($data);
+        return (string)$NeuralNetwork;
     }
     
     public function actionTest()

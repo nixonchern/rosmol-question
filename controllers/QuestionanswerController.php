@@ -10,6 +10,8 @@ use yii\filters\VerbFilter;
 use app\models\gii\QuestionAnswer;
 use app\models\QuestionAnswerSearch;
 use yii\web\NotFoundHttpException;
+use \GuzzleHttp\Client as GuzzleClient;
+use yii\helpers\Json;
 
 class QuestionanswerController extends Controller
 {
@@ -154,5 +156,34 @@ class QuestionanswerController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionTestQuestion()
+    {
+        $request = Yii::$app->request;
+        $post = $request->post();
+        $q = (array_key_exists('QuestionAnswer', $post)) ? $post['QuestionAnswer']['question'] : null;
+
+        if($q){
+            $client = new GuzzleClient();
+            $res = $client->post('http://localhost:8080/guess', [
+                'headers' => ['Content-type' => 'application/json'],
+                'body' => Json::encode([
+                    'guess' => $q
+                ])
+            ]);
+            $result = $res->getBody();
+        }
+        else{ $result = null; }
+        var_dump($result);
+        exit;
+
+        $model = new QuestionAnswer();
+        $model->load($post);
+
+        return $this->render('test-question', [
+            'result' => $result,
+            'model' => $model,
+        ]);
     }
 }
