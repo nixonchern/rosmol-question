@@ -3,6 +3,8 @@
 namespace app\models\gii;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+use app\models\NeuralNetwork;
 
 /**
  * This is the model class for table "question_answer".
@@ -42,5 +44,17 @@ class QuestionAnswer extends \yii\db\ActiveRecord
             'question' => 'Вопрос',
             'answer' => 'Ответ',
         ];
+    }
+
+    public function afterSave($insert, $changedAttributes) {
+        $questionAnswers = QuestionAnswer::find()->asArray()->all();
+        $data = ArrayHelper::map($questionAnswers, 'question', 'answer');
+        $NeuralNetwork = (new NeuralNetwork)->train($data);
+    }
+
+    public function afterDelete() {
+        $questionAnswers = QuestionAnswer::find()->asArray()->all();
+        $data = ArrayHelper::map($questionAnswers, 'question', 'answer');
+        $NeuralNetwork = (new NeuralNetwork)->train($data);
     }
 }
