@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\gii\QuestionAnswer;
 use app\models\gii\Unansweredquestions;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -66,14 +67,33 @@ class UnansweredquestionsController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $modelOld = $this->findModel($id);
+        $model = new QuestionAnswer();
+        $model->question = $modelOld->question;
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save() && $modelOld->delete()) {
+            $dataProvider = new ActiveDataProvider([
+                'query' => UnansweredQuestions::find(),
+                /*
+                'pagination' => [
+                    'pageSize' => 50
+                ],
+                'sort' => [
+                    'defaultOrder' => [
+                        'id' => SORT_DESC,
+                    ]
+                ],
+                */
+            ]);
+
+            return $this->render('index', [
+                'dataProvider' => $dataProvider,
+            ]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'modelOld' => $modelOld,
+            'model' => $model
         ]);
     }
 
